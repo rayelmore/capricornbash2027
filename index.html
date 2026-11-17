@@ -103,6 +103,31 @@ const SEED = {
   ]
 };
 
+/* ---------- Mission Resort activities (resort flyer, 2026) — for non-golfers ---------- */
+const RESORT = {
+  flyers: [['img/resort-activities-1.jpg','On property'],['img/resort-activities-2.jpg','Off property']],
+  on: [['The Spa','A pampering day followed by a relaxing lunch. Pedicure, manicure, facial and massage.'],
+       ['Cooking class with the chef',"Learn the chef's secrets and techniques, then enjoy the lunch you made or a chef-prepared dinner."],
+       ['Yoga','Unwind and de-stress with a relaxing yoga session.'],
+       ['Tennis & pickleball','Six tennis courts with a choice of surfaces and lighting, plus four pickleball courts. Full-service tennis shop with racquet rental (proper attire required). Group clinics available.'],
+       ['Billiards & game room','Pool tables, darts, cards and billiards next to Lakeview Lawn. Ask about reserving the game room for the group.'],
+       ['Bicycling','Lake County was voted a "Top 50 Place to Cycle." Bikes at the front desk for on-property use.'],
+       ['Trivia','A trivia game night — categories or theme can be customized for the group.'],
+       ['Recreation park','Volleyball, horseshoes, basketball, cornhole, ping-pong, shuffleboard, a scavenger hunt and a children\'s playground.'],
+       ['Golf academy','Lessons and clinics available.'],
+       ['Putting course or chipping contest','The resort can set up a putting course and/or chipping contest for the group (quote on request).'],
+       ['Fitness & pool','Cybex fitness center with strength, cardio and free weights. Pool day with a private poolside cabana.'],
+       ['Wildlife watching','Bald eagles, osprey and many other birds, plus alligators, turtles and fish in the ponds.'],
+       ['Fishing & waterfront sunsets','Guided trips on the Harris Chain of Lakes (state fishing license required), or catch-and-release on the property ponds (no license needed).'],
+       ['Laser skeet shooting','Safe, modern laser skeet — high-energy outdoor competition for the group.']],
+  off: [['Dora Queen Paddleboat','352-533-3380','www.doraqueen.com'],['Premier Boat Tours','352-434-8040','premierboats@doracanaltour.com'],
+        ['Jones Brothers Air & Seaplane Adventures','352-508-1800','www.jonesairandsea.com'],['Yalaha German Bakery','352-324-3366','www.yalahabakery.com'],
+        ['Revolution Adventures','352-400-1322','www.revolutionadventures.com'],['Break Point Alley','352-343-5333','www.breakpointgames.net'],
+        ['Mount Dora Trolley','352-385-4473','www.mountdoratrolley.com'],['VIA Entertainment','352-314-3939','www.viaentertainment.com'],
+        ['Black Jack Clay Shooting','352-569-9469','www.blackjackclays.com'],['Crooked Can Brewery','407-395-9520','www.crookedcan.com'],
+        ['Lakeridge Winery','800-768-9463','www.lakeridgewinery.com'],['Howey Mansion','406-906-4918','www.thehoweymansion.com']]
+};
+
 /* ---------- Black & Gold Sneaker Ball (from Kelleye's flyers) ---------- */
 const BALL = {
   program: [['6:30 PM','Cocktail hour','Legends B + Terrace'],['7:00 PM','Birthday celebrants entrance','',1],['7:15 PM','Dinner service','American comfort buffet'],
@@ -362,6 +387,11 @@ V.event = () => {
   <div class="tiny muted" style="margin-top:4px">Tap a flyer to see it full size.</div>
   <details style="margin-top:10px"><summary class="small" style="color:var(--gold2)">Dinner menu</summary>${BALL.menu.map(([k,v])=>`<div style="padding:6px 0"><div class="tiny muted">${esc(k)}</div><div class="small">${esc(v)}</div></div>`).join('')}</details>
   <details style="margin-top:6px"><summary class="small" style="color:var(--gold2)">Bar menu</summary>${BALL.bar.map(([k,v])=>`<div style="padding:6px 0"><div class="tiny muted">${esc(k)}</div><div class="small">${esc(v)}</div></div>`).join('')}</details></section>
+  <section class="card"><h2>Not golfing? Things to do</h2><div class="small muted">Mission Resort's activities list, for anyone who'd rather spa, swim or explore while the golfers play.</div>
+  <div class="photos" style="margin-top:10px">${RESORT.flyers.map(([src,l])=>`<figure style="margin:0"><img src="${src}" alt="Resort activities flyer — ${esc(l)}" data-flyer="${src}" style="aspect-ratio:auto;height:150px;object-fit:cover;object-position:top"><figcaption class="tiny muted" style="text-align:center;margin-top:3px">${esc(l)}</figcaption></figure>`).join('')}</div>
+  <div class="tiny muted" style="margin-top:4px">Tap a flyer to see it full size.</div>
+  <details style="margin-top:10px"><summary class="small" style="color:var(--gold2)">At the resort (${RESORT.on.length})</summary>${RESORT.on.map(([k,v])=>`<div style="padding:6px 0"><div class="small"><b>${esc(k)}</b></div><div class="small muted">${esc(v)}</div></div>`).join('')}<div class="tiny muted" style="margin-top:4px">Ask the front desk to book.</div></details>
+  <details style="margin-top:6px"><summary class="small" style="color:var(--gold2)">Nearby (${RESORT.off.length})</summary>${RESORT.off.map(([n,ph,w])=>`<div style="padding:6px 0"><div class="small"><b>${esc(n)}</b></div><div class="small"><a href="tel:+1${ph.replace(/\D/g,'')}">${esc(ph)}</a> · ${w.includes('@')?`<a href="mailto:${esc(w)}">${esc(w)}</a>`:`<a href="https://${esc(w)}" target="_blank" rel="noopener">${esc(w.replace(/^www\./,''))}</a>`}</div></div>`).join('')}</details></section>
   <section class="card"><h2>Trip details</h2>${rows.map(([k,v])=>`<div style="padding:8px 0;border-top:1px solid var(--line)"><div class="tiny muted">${esc(k)}</div><div>${linkify(esc(v))}</div></div>`).join('').replace('border-top:1px solid var(--line)','border-top:0')}
   ${ORG()?'<button class="btn ghost sm" id="iEdit" style="margin-top:8px">Edit details</button>':''}</section>
   <section class="card"><div class="row between"><h2 style="margin:0">Who's coming</h2>${ORG()?'<button class="btn ghost sm" id="peNew">Add party</button>':''}</div>
